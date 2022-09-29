@@ -1,0 +1,34 @@
+{% load static %}
+{% comment %} on met {% load static %} pour pouvoir mettre {% static 'app.css' %} plus bas
+(=> On importe la fonction en quelques sortes) {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title%}{% endblock title %}</title>
+    {% comment %} Ici {% static 'app.css' %} n'est pas automatiquement prise en compte par 
+    le logiciel, il faut donc aller dans les paramètre de settings.py et y ajouter 
+    STATICFILES_DIRS = [BASE_DIR/'static']  {% endcomment %}
+    <link rel="stylesheet" href="{% static 'app.css' %}">
+
+    {% comment %} /!\ le link sert à faire la référence css pour CE fichier (base.html).
+    Le block css_files sert à faire la référence pour les fichiers html qui extendes base.html
+    et sera lui même passé dans un link{% endcomment %}
+    {% block css_files %}{% endblock css_files %}
+</head>
+<body>
+    <header id = "main-navigation">
+        {% comment %} Ici, on pointe vers l'url programmé dans blog/urls.py : 
+        path("",views.starting_page, name = 'starting_page') {% endcomment %}
+        <h1><a href="{% url 'starting-page' %}">Ttale's blog</a></h1>
+        <nav>
+            {% comment %} Même commentaire que plus haut {% endcomment %}
+            <a href="{% url 'read-later' %}">To read later</a>
+            <a href="{% url 'posts-page' %}">All posts</a>
+        </nav>
+    </header>
+    {% block content %}{% endblock content %}
+</body>
+</html>

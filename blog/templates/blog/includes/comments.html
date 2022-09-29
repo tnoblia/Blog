@@ -1,0 +1,25 @@
+<section id = "comments">
+<ul>
+    {% for comment in comments %}
+    <li>
+        <h2>{{comment.author}}</h2> 
+        <p>{{comment.content|linebreaks}}</p>
+    </li>
+    {% endfor %}
+</ul>
+</section>
+
+<section id = 'comment-form'>
+    <h2>Your comment</h2>
+    <form action = "{% url 'post-detail-page' post.slug %}"method = 'POST' > 
+        {%csrf_token%}
+        {%for field in comment_form %}
+            <div class = "form-control">
+            {{field.label_tag}}
+            {{field}}
+            </div>
+        {%endfor%}
+        <button type = 'submit'>Send</button>
+    </form>
+</section>
+

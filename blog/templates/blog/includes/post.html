@@ -1,0 +1,18 @@
+<li>
+    <article class = "post">
+        {% comment %} Voilà comment on passe un slug (voir blog/urls.py) :
+        path("posts/<slug:slug>",views.post_detail, name = 'post-detail-page')
+            Ici le slug correspond à 'the-charlemagne'{% endcomment %}
+        <a href="{% url 'post-detail-page' post.slug %}">
+            {% comment %}
+            {{post.slug}} 
+            On accède à la propriété "url" de l'imageField 'image' {% endcomment %}
+            <img src="{{post.image.url}}" alt="{{post.image.name}}"/>
+            <div class = "post__content">
+                {% comment %} post.title in DTL is equal to post['title'] {% endcomment %}
+                <h3>{{post.title}}</h3>
+                <p>{{post.excerpt}}</p>
+            </div>
+        </a>
+    </article>
+</li>

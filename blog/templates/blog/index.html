@@ -1,0 +1,48 @@
+{% extends 'base.html' %} 
+{% comment %} We can put an absolute path here cause we have put BASE_DIR/"templates"
+in TEMPLATES in settings.py 
+This will take the base.html file and put the following parameters in
+ the base.html file{% endcomment %}
+
+ {% load static %}
+{% comment %} Il faut faire load static ici aussi même si on l'a déjà dans base.html {% endcomment %}
+ 
+{% block title %}
+ My blog
+ {% endblock title %}
+
+ {% block css_files %}
+ <link rel="stylesheet" href="{% static 'blog/post.css' %}">
+ <link rel="stylesheet" href="{% static 'blog/index.css' %}">
+ {% endblock css_files %}
+ {% block content %}
+
+ <section id = "welcome">
+     <header>
+         <img src="{% static 'blog/images/moi.jpg' %}" alt="Ttale - the author of this blog">
+         <h2>Ttale's blog</h2>
+     </header>
+     <p>Hello, I'm Ttale, I love to code and I am a nerd to the core, I love science, history and maths.</p>
+ </section>
+
+ <section id = 'latest-posts'>
+     <h2> My latest thoughts</h2>
+     <ul>
+         {% comment %} We have access to posts because we put it through the context of the function:
+         return render(request,"blog/index.html",{
+        'posts' : latest_posts
+                 })    
+        in blog/views.py {% endcomment %}
+         {% for post in posts %} 
+         {% include "blog/includes/post.html" %}
+         {% endfor %}
+     </ul>
+ </section>
+
+ <section id = "about">
+     <h2>What I do</h2>
+     <p>I love programming</p>
+     <p>I love science</p>
+     <p>My goal is to find a job where i can mix technical knowledge, programming and science</p>
+ </section>
+ {% endblock content %}
